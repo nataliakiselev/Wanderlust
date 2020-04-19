@@ -15,7 +15,12 @@ const useAsync = (url, immediate = true) => {
   // on every render, but only if asyncFunction changes.
   const execute = useCallback(async () => {
     if (callsMade > callsLimit) {
-      throw new Error("Too many calls made");
+      setError("Too many calls made");
+      return;
+    }
+    if (pending) {
+      console.log("Was pending. Bailing...");
+      return;
     }
     setPending(true);
     // setValue(null);
@@ -32,21 +37,18 @@ const useAsync = (url, immediate = true) => {
         const data = await response.json();
         console.log("weather data", data);
         setValue(data);
+        setCallsMade(0);
       } else {
         throw response;
       }
     } catch (err) {
       console.log(err);
+      setCallsMade((cl) => cl + 1);
       setError(err);
     } finally {
       setPending(false);
-      setCallsMade((cl) => cl + 1);
     }
-    // return asyncFunction()
-    //   .then((response) => setValue(response))
-    //   .catch((error) => setError(error))
-    //   .finally(() => setPending(false));
-  }, [callsLimit, callsMade, url]);
+  }, [callsLimit, callsMade, url, pending]);
 
   // Call execute if we want to fire it right away.
   // Otherwise execute can be called later, such as
