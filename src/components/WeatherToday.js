@@ -47,7 +47,8 @@ function WeatherToday({ heading }) {
     }
   }, [callAPI, city, weatherReport, pending, err]);
 
-  let backgroundImage = "";
+  let backgroundImage =
+    "https://s19499.pcdn.co/wp-content/uploads/2018/09/blue-sky-with-bright-sun-picture-id947314334-1.jpg"; // default
 
   if (weatherReport) {
     let stationReport = weatherReport.weather[0];
@@ -58,6 +59,7 @@ function WeatherToday({ heading }) {
   const styles = {
     background: `url(${backgroundImage}) center/cover`,
     padding: "15px",
+    minHeight: "500px",
   };
 
   return (
