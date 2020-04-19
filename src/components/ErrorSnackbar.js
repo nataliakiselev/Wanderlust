@@ -1,7 +1,7 @@
-import React from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/core/styles";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -9,26 +9,33 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
   },
 }));
 
-export default function ErrorSnackbar() {
+export default function ErrorSnackbar({ errorMessage }) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(() => {
+    console.log(`Initial snackbar state: ${!!errorMessage}`);
+    return !!errorMessage;
+  });
+  console.log("open", open);
+  console.log("errorMessage", errorMessage);
 
-  const handleChange = () => {
-    setOpen(true);
-  };
+  if (!errorMessage) {
+    console.warn(
+      `Tried to show a snackbar with no message set: ${errorMessage}`
+    );
+    setOpen(false);
+  }
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
@@ -36,15 +43,15 @@ export default function ErrorSnackbar() {
     <div className={classes.root}>
       <Snackbar
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
-        open={open}
+        open={errorMessage && open}
         autoHideDuration={6000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error">
-          message
+          {errorMessage}
         </Alert>
       </Snackbar>
     </div>

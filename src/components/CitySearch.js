@@ -1,74 +1,87 @@
-import React, { useContext } from 'react';
-import { CityContext } from '../CityContext';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import React, { useContext, useState, useEffect } from "react";
+import InputBase from "@material-ui/core/InputBase";
+import SearchIcon from "@material-ui/icons/Search";
+import { fade, makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+import { CityContext } from "../contexts/CityContext";
+import useDebounce from "./../hooks/useDebounce";
+import useLocalStorage from "./../hooks/useLocalStorage";
+
+const useStyles = makeStyles((theme) => ({
   search: {
-    position: 'relative',
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: 'auto'
-    }
+      width: "auto",
+    },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   inputRoot: {
-    color: 'inherit'
+    color: "inherit",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch'
-      }
-    }
-  }
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
 }));
 
-
-const CitySearch = props => {
+const CitySearch = (props) => {
   const classes = useStyles();
-  const [term, setTerm] = useContext(CityContext)
+  const [term, setTerm] = useContext(CityContext);
+  const [, setPersistedTerm] = useLocalStorage("city");
+  const [str, setStr] = useState(term);
+  const debouncedSearchTerm = useDebounce(str, 500);
+
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm !== term) {
+      console.log("setting search term", debouncedSearchTerm);
+      setPersistedTerm(debouncedSearchTerm);
+      setTerm(debouncedSearchTerm);
+    }
+  }, [str, term, setTerm, debouncedSearchTerm, setPersistedTerm]);
+
   return (
-   
-       <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase 
-            value={term}
-            onChange={e => {
-              console.log('value', e.target.value);
-          setTerm(e.target.value)
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
+      </div>
+      <InputBase
+        value={str}
+        onChange={(e) => {
+          console.log("value", e.target.value);
+          setStr(e.target.value.toLowerCase());
         }}
-              placeholder="Enter your city"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+        placeholder="Enter your city"
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ "aria-label": "search" }}
+      />
     </div>
   );
 };

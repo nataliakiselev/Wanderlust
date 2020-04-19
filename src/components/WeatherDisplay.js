@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const WeatherDisplay = ({ data }) => {
   let renderedComponent = <p>Choose your city</p>;
@@ -16,9 +16,9 @@ const WeatherDisplay = ({ data }) => {
           <dt>Summary</dt>
           <dd>{report.description}</dd>
           <dt>Temperature</dt>
-          <dd>{data.main.temp} &#8451;</dd>
+          <dd>{data.main.temp} &deg;</dd>
           <dt> Feels Like</dt>
-          <dd>{data.main.feels_like} &#8451;</dd>
+          <dd>{data.main.feels_like} &deg;</dd>
           <dt>Humidity</dt>
           <dd>{data.main.humidity}%</dd>
           <dt>Wind Speed</dt>
