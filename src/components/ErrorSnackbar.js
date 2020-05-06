@@ -43,7 +43,7 @@ export default function ErrorSnackbar({ errorMessage }) {
     <div className={classes.root}>
       <Snackbar
         anchorOrigin={{
-          vertical: "bottom",
+          vertical: "top",
           horizontal: "left",
         }}
         open={errorMessage && open}

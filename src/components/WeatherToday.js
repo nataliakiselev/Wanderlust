@@ -24,28 +24,28 @@ function WeatherToday({ heading }) {
   console.log("full weather report", weatherReport);
   console.log("error", err);
 
-  useEffect(() => {
-    // debugger;
-    if (pending) {
-      console.log("Call already in progress: Bailing...");
-      return;
-    }
-    const normalisedWeatherReportName =
-      weatherReport && weatherReport.name.toLowerCase();
-    const citiesAreMatching = normalisedWeatherReportName === city;
-    const thisCallErrored = err && err.url.includes(`q=${city}`);
-    console.log(
-      `Report present already: ${!!weatherReport};
-      Name in report does not match city: ${!citiesAreMatching}
-      This call is errored: ${thisCallErrored}`
-    );
-    if ((!weatherReport || !citiesAreMatching) && !thisCallErrored) {
-      console.log("Going to call");
-      callAPI();
-    } else {
-      console.log("Did not call");
-    }
-  }, [callAPI, city, weatherReport, pending, err]);
+  // useEffect(() => {
+  //   // debugger;
+  //   if (pending) {
+  //     console.log("Call already in progress: Bailing...");
+  //     return;
+  //   }
+  //   const normalisedWeatherReportName =
+  //     weatherReport && weatherReport.name.toLowerCase();
+  //   const citiesAreMatching = normalisedWeatherReportName === city;
+  //   const thisCallErrored = err && err.url.includes(`q=${city}`);
+  //   console.log(
+  //     `Report present already: ${!!weatherReport};
+  //     Name in report does not match city: ${!citiesAreMatching}
+  //     This call is errored: ${thisCallErrored}`
+  //   );
+  //   if ((!weatherReport || !citiesAreMatching) && !thisCallErrored) {
+  //     console.log("Going to call");
+  //     callAPI();
+  //   } else {
+  //     console.log("Did not call");
+  //   }
+  // }, [callAPI, city, weatherReport, pending, err]);
 
   let backgroundImage =
     "https://s19499.pcdn.co/wp-content/uploads/2018/09/blue-sky-with-bright-sun-picture-id947314334-1.jpg"; // default
@@ -63,7 +63,7 @@ function WeatherToday({ heading }) {
   };
 
   return (
-    <div id="thing" style={styles}>
+    <div style={styles}>
       <h1>{heading}</h1>
       {pending && <p>Loading...</p>}
       {weatherReport && <WeatherDisplay data={weatherReport} />}

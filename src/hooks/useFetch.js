@@ -54,10 +54,11 @@ const useAsync = (url, immediate = true) => {
   // Otherwise execute can be called later, such as
   // in an onClick handler.
   useEffect(() => {
+    
     if (immediate) {
       execute(url);
     }
-  }, [execute, immediate, url]);
+  }, [ execute, url, immediate]);
 
   return { execute, pending, value, error };
 };
