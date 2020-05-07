@@ -1,13 +1,14 @@
-import React from 'react';
-import NewsHeader from '../components/NewsHeader';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import News from '../components/News';
+import React from "react";
+// import NewsHeader from '../components/NewsHeader';
+import Header from "../components/Header";
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import News from "../components/News";
 
 function NewsFeed() {
   return (
     <div className="page">
-      <NewsHeader />
+      <Header />
       <Container>
         <Grid container spacing={4}>
           <Grid item xs={12}>

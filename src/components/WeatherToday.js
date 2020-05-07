@@ -1,4 +1,4 @@
-import React, { useContext, useEffect /*, useState */ } from "react";
+import React, { useContext /* useEffect , useState */ } from "react";
 import ErrorSnackbar from "./ErrorSnackbar";
 import WeatherDisplay from "./WeatherDisplay";
 import { CityContext } from "../contexts/CityContext";
@@ -10,7 +10,7 @@ function WeatherToday({ heading }) {
   const [city] = useContext(CityContext);
   // const [lastGoodData, setLastGoodData] = useState(null);
   const {
-    execute: callAPI,
+    // execute: callAPI,
     pending,
     value: weatherReport,
     error: err,
