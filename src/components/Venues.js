@@ -36,16 +36,19 @@ const dataFetchReducer = (state, action) => {
         data: action.payload,
       };
     case "FETCH_FAILURE":
+      console.log("Fetch failure", action);
       return {
         ...state,
         loading: false,
-        err: true,
+        err: true, // should pass on the actual error
       };
     default:
-      throw new Error();
+      // throw new Error('');
+      return state; // With reducers, if it doesn't match you just pass the original state on...
   }
 };
 
+// Should this be a hook?
 const useDataApi = (initialUrl, initialData) => {
   const [url, setUrl] = useState(initialUrl);
   const [state, dispatch] = useReducer(dataFetchReducer, {
@@ -53,13 +56,13 @@ const useDataApi = (initialUrl, initialData) => {
     err: false,
     data: initialData,
   });
-  console.log(initialUrl);
+  console.log("initialState", state);
+  console.log("initialUrl", initialUrl);
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_INIT" });
       try {
         const res = await fetch(url);
-
         const respJson = await res.json();
 
         const places = respJson.response.groups[0].items.map(
@@ -68,6 +71,7 @@ const useDataApi = (initialUrl, initialData) => {
         console.log(places);
         dispatch({ type: "FETCH_SUCCESS", payload: places });
       } catch (error) {
+        console.log("error", error);
         dispatch({ type: "FETCH_FAILURE" });
       }
     };
@@ -91,13 +95,12 @@ function Venues({ heading }) {
   );
   useEffect(() => {
     doFetch();
-    console.log("doing fetch url");
+    console.log(`doing fetch url for ${city}`);
   }, [city, doFetch]);
-
+  console.log(`inital error ${err}`);
   return (
     <>
-      <h1> {heading} </h1>
-
+      <h1>{heading}</h1>
       {err && (
         <ErrorSnackbar
           errorMessage={err.message || `${city} ${err.statusText}`}

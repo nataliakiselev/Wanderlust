@@ -15,7 +15,7 @@ function Home() {
         <Container>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <h1>weather</h1>
+              <h1>Weather Today</h1>
               {/* <ErrorBoundary>
                 <WeatherToday heading="Weather Today" />
               </ErrorBoundary> */}
