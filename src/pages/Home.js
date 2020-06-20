@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-// import WeatherToday from "../components/WeatherToday";
+import WeatherToday from "../components/WeatherToday";
 import Venues from "../components/Venues";
 import { CityContextProvider } from "../contexts/CityContext";
 import ErrorBoundary from "../components/ErrorBoundary";
@@ -15,10 +15,9 @@ function Home() {
         <Container>
           <Grid container spacing={4}>
             <Grid item xs={6}>
-              <h1>Weather Today</h1>
-              {/* <ErrorBoundary>
+              <ErrorBoundary>
                 <WeatherToday heading="Weather Today" />
-              </ErrorBoundary> */}
+              </ErrorBoundary>
             </Grid>
             <Grid item xs={6}>
               <ErrorBoundary>
