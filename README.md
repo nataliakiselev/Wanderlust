@@ -1,3 +1,6 @@
+A basic React app using weather, venues recommendation and news APIs. CSS using Material UI.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
