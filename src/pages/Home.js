@@ -5,7 +5,6 @@ import Container from "@material-ui/core/Container";
 import WeatherToday from "../components/WeatherToday";
 import Venues from "../components/Venues";
 import { CityContextProvider } from "../contexts/CityContext";
-import ErrorBoundary from "../components/ErrorBoundary";
 
 function Home() {
   return (
@@ -14,15 +13,11 @@ function Home() {
         <Header searchBar />
         <Container>
           <Grid container spacing={4}>
-            <Grid item xs={6}>
-              <ErrorBoundary>
-                <WeatherToday heading="Weather Today" />
-              </ErrorBoundary>
+            <Grid item xs={3}>
+              <WeatherToday heading="Weather Today" />
             </Grid>
-            <Grid item xs={6}>
-              <ErrorBoundary>
-                <Venues heading="Explore Venues" />
-              </ErrorBoundary>
+            <Grid item xs={9}>
+              <Venues heading="Explore Venues" />
             </Grid>
           </Grid>
         </Container>

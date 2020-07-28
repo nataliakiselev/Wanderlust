@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+
 import ErrorSnackbar from "./ErrorSnackbar";
 import WeatherDisplay from "./WeatherDisplay";
 import { CityContext } from "../contexts/CityContext";
@@ -55,7 +56,7 @@ function WeatherToday({ heading }) {
   const styles = {
     background: `url(${backgroundImage}) center/cover`,
     padding: "15px",
-    minHeight: "500px",
+    minHeight: "100%",
   };
 
   return (

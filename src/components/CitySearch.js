@@ -54,7 +54,7 @@ const CitySearch = (props) => {
   const [term, setTerm] = useContext(CityContext);
   const [, setPersistedTerm] = useLocalStorage("city");
   const [str, setStr] = useState(term);
-  const debouncedSearchTerm = useDebounce(str, 500);
+  const debouncedSearchTerm = useDebounce(str, 1000);
 
   useEffect(() => {
     if (debouncedSearchTerm && debouncedSearchTerm !== term) {
@@ -85,6 +85,8 @@ const CitySearch = (props) => {
     </div>
   );
 };
+
+export default CitySearch;
 
 // class CitySearch extends React.Component {
 //   constructor(props) {
@@ -134,5 +136,3 @@ const CitySearch = (props) => {
 //     );
 //   }
 // }
-
-export default CitySearch;

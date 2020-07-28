@@ -1,21 +1,70 @@
 import React from "react";
-import { Paper } from "@material-ui/core";
+import {
+  Card,
+  CardHeader,
+  CardMedia,
+  CardContent,
+  Typography,
+  Grid,
+} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: "100%",
+  },
+  details: {
+    display: "flex",
+  },
+  content: {
+    display: "flex",
+
+    flexDirection: "column",
+  },
+
+  cover: {
+    width: 70,
+    height: 70,
+    margin: "auto",
+  },
+  // header: {
+  //   flexBasis: "100%",
+  // },
+}));
 
 const VenuesDisplay = ({ data }) => {
+  const classes = useStyles();
   return data.map((venue) => (
-    <Paper variant="outlined" square key={venue.id}>
-      <h3>{venue.name}</h3>
+    <Grid item sm={4} key={venue.id}>
+      <Card className={classes.root}>
+        <CardHeader title={venue.name} className={classes.header} />
 
-      <img
-        src={`${venue.categories[0].icon.prefix}bg_64${venue.categories[0].icon.suffix}`}
-        alt={venue.categories[0].name}
-      />
-      <p>{venue.categories[0].name}</p>
-      <h4>Address</h4>
-      <p>{venue.location.address}</p>
+        <div className={classes.details}>
+          <CardContent className={classes.content}>
+            <Typography variant="body1" color="textSecondary">
+              {venue.categories[0].name}
+            </Typography>
 
-      <p>{venue.url}</p>
-    </Paper>
+            <Typography component="h6" variant="h6">
+              Address
+            </Typography>
+
+            <Typography variant="body1" color="textSecondary">
+              {venue.location.address}
+            </Typography>
+
+            <Typography variant="body1" color="textSecondary">
+              {venue.url}
+            </Typography>
+          </CardContent>
+          <CardMedia
+            className={classes.cover}
+            image={`${venue.categories[0].icon.prefix}bg_64${venue.categories[0].icon.suffix}`}
+            title={venue.categories[0].name}
+          />
+        </div>
+      </Card>
+    </Grid>
   ));
 };
 

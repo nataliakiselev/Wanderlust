@@ -37,15 +37,6 @@ class News extends React.Component {
   }
 
   render() {
-    // const list = [];
-    // for (let [index, story] of this.state.data.entries()) { [0, 'thing], [1, 'other]
-    //   list.push(
-    //     <li key={index}>
-    //       <img src={story.urlToImage} alt={''} width="50" />
-    //       <a href={story.url}>{story.title}</a> by{story.author}{' '}
-    //     </li>
-    //   );
-    // }
 
     const styles = {
       listStyle: 'none'
@@ -66,3 +57,13 @@ class News extends React.Component {
   }
 }
 export default News;
+
+   // const list = [];
+    // for (let [index, story] of this.state.data.entries()) { [0, 'thing], [1, 'other]
+    //   list.push(
+    //     <li key={index}>
+    //       <img src={story.urlToImage} alt={''} width="50" />
+    //       <a href={story.url}>{story.title}</a> by{story.author}{' '}
+    //     </li>
+    //   );
+    // }

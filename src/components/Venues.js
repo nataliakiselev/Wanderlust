@@ -1,77 +1,21 @@
-import React, { useContext, useState, useEffect, useCallback } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { CityContext } from "../contexts/CityContext";
 import ErrorSnackbar from "./ErrorSnackbar";
 // import {Paper, makeStyles} from "@material-ui/core";
 import VenuesDisplay from "./VenuesDisplay";
 
-// const dataFetchReducer = (state, action) => {
-//   switch (action.type) {
-//     case "FETCH_INIT":
-//       return {
-//         ...state,
-//         loading: true,
-//         err: false,
-//       };
-//     case "FETCH_SUCCESS":
-//       return {
-//         ...state,
-//         loading: false,
-//         err: false,
-//         data: action.payload,
-//       };
-//     case "FETCH_FAILURE":
-//       console.log("Fetch failure", action);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    display: "flex",
+    flexWrap: "wrap",
 
-//       return {
-//         ...state,
-//         loading: false,
-//         err: action.error,
-//         // should pass on the actual error
-//       };
-//     default:
-//       // throw new Error('');
-//       return state; // With reducers, if it doesn't match you just pass the original state on...
-//   }
-// };
+    padding: 0,
+  },
+}));
 
-// // Should this be a hook?
-// const useDataApi = (initialUrl, initialData) => {
-//   const [url, setUrl] = useState(initialUrl);
-//   const [state, dispatch] = useReducer(dataFetchReducer, {
-//     isLoading: false,
-//     err: false,
-//     data: initialData,
-//   });
-//   console.log("initialState", state);
-//   console.log("initialUrl", initialUrl);
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       dispatch({ type: "FETCH_INIT" });
-//       console.log("try url", url);
-//       try {
-//         const res = await fetch(url);
-//         const respJson = await res.json();
-
-//         const places = respJson.response.groups[0].items.map(
-//           (item) => item.venue,
-//         );
-//         console.log(places, "places");
-
-//         dispatch({ type: "FETCH_SUCCESS", payload: places });
-//       } catch (error) {
-//         console.log("error", error);
-//         dispatch({ type: "FETCH_FAILURE", err: error });
-//       }
-//     };
-//     console.log(url);
-//     fetchData();
-//     console.log(state);
-//   }, [url]);
-
-//   return [state, setUrl];
-// };
-
-//in function:
 const clientId = "EP4ZZTBXPWE3LVNLTLM2GJ4QITRAP00T3JZ2QNLRXATBGK2L";
 const clientSecret = "A53P043ZL0PT1WV5J1B1O1BZMCL3LUC5PYA1AR25WIFW4SMD";
 const urlBase = "https://api.foursquare.com/v2/venues/explore?near=";
@@ -84,22 +28,16 @@ const dateString = `${year}${month < 10 ? "0" + month : month}${
 }`;
 
 function Venues({ heading }) {
+  const classes = useStyles();
   const [data, setData] = useState([]);
   const [city] = useContext(CityContext);
   console.log("city venues", city);
   const [pending, setPending] = useState(false);
   const [err, setErr] = useState();
 
-  // const [url, setUrl] = useState(
-  //   `${url}${city}&limit=10&client_id=${clientId}&client_secret=${clientSecret}&v=${dateString}`,
-  // );
-  // const [{ data, isLoading, err }, doFetch] = useDataApi(
-  //   `${urlBase}${city}&limit=9&client_id=${clientId}&client_secret=${clientSecret}&v=${dateString}`,
-  //   [],
-  // );
   useEffect(() => {
     async function getVenues() {
-      const urlToFetch = `${urlBase}${city}&limit=10&client_id=${clientId}&client_secret=${clientSecret}&v=${dateString}`;
+      const urlToFetch = `${urlBase}${city}&limit=9&client_id=${clientId}&client_secret=${clientSecret}&v=${dateString}`;
       console.log("calling venues");
       setErr(false);
       setPending(true);
@@ -115,7 +53,7 @@ function Venues({ heading }) {
         console.log(places);
         console.log(places[0].location.city);
         setData(places);
-      } catch (error) {
+      } catch (err) {
         console.log(err);
         setErr(true);
       }
@@ -125,80 +63,18 @@ function Venues({ heading }) {
   }, [city]);
 
   return (
-    <>
-      <h1>{heading}</h1>
+    <Grid container className={classes.root} spacing={2}>
+      <Grid item xs={12}>
+        <h1>{heading}</h1>
+      </Grid>
+
       {err && (
         <ErrorSnackbar
           errorMessage={err.message || `${city} ${err.statusText}`}
         />
       )}
       {pending ? <p>Loading...</p> : <VenuesDisplay data={data} />}
-    </>
+    </Grid>
   );
 }
 export default Venues;
-
-// https://api.foursquare.com/v2/venues/explore?near=london&limit=10&client_id=EP4ZZTBXPWE3LVNLTLM2GJ4QITRAP00T3JZ2QNLRXATBGK2L&client_secret=A53P043ZL0PT1WV5J1B1O1BZMCL3LUC5PYA1AR25WIFW4SMD&v=20200429
-
-//   function Venues ({heading}){;
-
-//     const [city] =  useContext(CityContext);
-//     const urlToFetch = `${url}${city}&limit=10&client_id=${clientId}&client_secret=${clientSecret}&v=${dateString}`;
-
-//     return (
-//       <>
-//       {isError && <div>Something went wrong ...</div>}
-
-//       {loading ? (
-//         <div>Loading ...</div>
-//       ) :(
-//         <div>
-//         <h1> {heading} </h1>
-
-//      {data.map(venue => (
-
-//      <div key={venue.id}>
-//                <h3>{venue.name}</h3>
-
-//                  <img src={`${venue.categories[0].icon.prefix}bg_64${venue.categories[0].icon.suffix}`} alt={venue.categories[0].name} />
-//                  <p>{venue.categories[0].name}</p>
-//                  <h4>Address</h4>
-//                   <p>{venue.location.address}</p>
-
-//                  <p>{venue.url}</p>
-//                </div>
-//      ))}
-
-//      </div>
-
-//     )
-//     }
-//     </>)
-//     }
-
-//  export default Venues;
-
-//   const useStyles = makeStyles((theme) => ({
-//     root: {
-//       display: 'flex',
-//       flexWrap: 'wrap',
-//       '& > *': {
-//         margin: theme.spacing(1),
-//         // width: theme.spacing(22),
-//         // height: theme.spacing(22),
-//       },
-//   },
-//   paper: {
-//     padding: '10px',
-//     margin: '10px',
-
-//     // display: 'flex',
-//     // flexWrap: 'wrap'
-//   },
-//   info: {
-//     display: 'flex',
-//   },
-//   para: {
-//     margin : '0 5px'
-//   }
-// }));
