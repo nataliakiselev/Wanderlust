@@ -4,7 +4,7 @@ The app allows you to find recommended venues and current weather for a chosen c
 ### ✨ [Demo](https://wanderlust-nk.netlify.app)
 
 
-## TODO:
+## todo:
 complete fetching hook with usereducer, integrate for both city-dependent components.
 
 
