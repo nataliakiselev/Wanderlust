@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import ErrorSnackbar from "./ErrorSnackbar";
 
 const hour = 60 * 60 * 1000;
 class News extends React.Component {
@@ -6,28 +7,28 @@ class News extends React.Component {
     super(props);
     this.state = {
       data: [],
-      refreshRate: hour
+      refreshRate: hour,
     };
     this.getNews = this.getNews.bind(this);
   }
 
   async getNews() {
-    console.log('getNews called');
+    console.log("getNews called");
     try {
       const response = await fetch(
-        'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=8dee90b41a204fc99f1546b1d85b3a1a'
+        "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=8dee90b41a204fc99f1546b1d85b3a1a",
       );
       const data = await response.json();
       console.log(response);
       const articles = data.articles;
-      console.log('data', data);
+      console.log("data", data);
       this.setState({
-        data: articles
+        data: articles,
       });
     } catch (err) {
       console.dir(err);
       this.setState({
-        error: err
+        error: err,
       });
     }
   }
@@ -37,17 +38,17 @@ class News extends React.Component {
   }
 
   render() {
-
     const styles = {
-      listStyle: 'none'
+      listStyle: "none",
     };
 
     return (
       <div>
+        {this.state.error && <ErrorSnackbar errorMessage="News fetch failed" />}
         <ul style={styles}>
           {this.state.data.map((story, i) => (
             <li key={i}>
-              <img src={story.urlToImage} alt={''} width="50" />
+              <img src={story.urlToImage} alt={""} width="50" />
               <a href={story.url}>{story.title}</a> by{story.author}
             </li>
           ))}
@@ -58,12 +59,12 @@ class News extends React.Component {
 }
 export default News;
 
-   // const list = [];
-    // for (let [index, story] of this.state.data.entries()) { [0, 'thing], [1, 'other]
-    //   list.push(
-    //     <li key={index}>
-    //       <img src={story.urlToImage} alt={''} width="50" />
-    //       <a href={story.url}>{story.title}</a> by{story.author}{' '}
-    //     </li>
-    //   );
-    // }
+// const list = [];
+// for (let [index, story] of this.state.data.entries()) { [0, 'thing], [1, 'other]
+//   list.push(
+//     <li key={index}>
+//       <img src={story.urlToImage} alt={''} width="50" />
+//       <a href={story.url}>{story.title}</a> by{story.author}{' '}
+//     </li>
+//   );
+// }
