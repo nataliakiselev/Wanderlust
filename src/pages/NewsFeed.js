@@ -7,7 +7,7 @@ import News from "../components/News";
 
 function NewsFeed() {
   return (
-    <div className="page">
+    <div>
       <Header />
       <Container>
         <Grid container spacing={4}>

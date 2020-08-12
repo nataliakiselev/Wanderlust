@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorSnackbar from "./ErrorSnackbar";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
 const hour = 60 * 60 * 1000;
 class News extends React.Component {
@@ -39,21 +39,22 @@ class News extends React.Component {
 
   render() {
     const styles = {
-      listStyle: "none",
+      margin: 5,
+      width: 50,
     };
 
     return (
-      <div>
-        {this.state.error && <ErrorSnackbar errorMessage="News fetch failed" />}
-        <ul style={styles}>
-          {this.state.data.map((story, i) => (
-            <li key={i}>
-              <img src={story.urlToImage} alt={""} width="50" />
-              <a href={story.url}>{story.title}</a> by{story.author}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <List>
+        {this.state.data.map((story, i) => (
+          <ListItem key={i}>
+            <img src={story.urlToImage} alt={story.title} style={styles} />
+            <ListItemText
+              primary={<a href={story.url}> {story.title}</a>}
+              secondary={`by ${story.author}`}
+            />
+          </ListItem>
+        ))}
+      </List>
     );
   }
 }
