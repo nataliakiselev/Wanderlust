@@ -3,6 +3,9 @@ The app allows you to find recommended venues and current weather for a chosen c
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+##TODO:
+complete fetching hook with usereducer, integrate for both city-dependent components.
+
 
 ## Available Scripts
 
