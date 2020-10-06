@@ -65,7 +65,7 @@ function Header({ searchBar }) {
               </ListItem>
               <ListItem button>
                 <NavLink className={classes.link} to="/newsfeed">
-                  News Feed
+                  News
                 </NavLink>
               </ListItem>
             </List>

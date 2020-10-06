@@ -8,7 +8,7 @@ const NEWS_ENDPOINT = new URL(NEWS_ENDPOINT_PATH, NEWS_API_HOST);
 const news_settings = {
   limit: "10",
   langs: "en",
-  skip: "1",
+  skip: "0",
 };
 const NEWS_URL_PARAMS = new URLSearchParams();
 for (const [key, value] of Object.entries(news_settings)) {
@@ -40,6 +40,7 @@ class News extends React.Component {
       });
       const data = await response.json();
       // console.log("data", data);
+      console.log(NEWS_API_URL);
       this.setState({
         data: data,
       });
@@ -58,12 +59,12 @@ class News extends React.Component {
   render() {
     const styles = {
       marginRight: "10px",
-      width: "100px",
+      width: "80px",
     };
     return (
       <List>
         {this.state.data.map((story, i) => (
-          <ListItem key={i} className="news">
+          <ListItem key={i} className="news" alignItems="flex-start">
             <img src={story.image} alt={story.title} style={styles} />
 
             <ListItemText

@@ -12,7 +12,6 @@ function NewsFeed() {
       <Container>
         <Grid container>
           <Grid item xs={12}>
-            <h1>News Today</h1>
             <News />
           </Grid>
         </Grid>
