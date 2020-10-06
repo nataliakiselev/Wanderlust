@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const clientId = "EP4ZZTBXPWE3LVNLTLM2GJ4QITRAP00T3JZ2QNLRXATBGK2L";
-const clientSecret = "A53P043ZL0PT1WV5J1B1O1BZMCL3LUC5PYA1AR25WIFW4SMD";
+const clientId = process.env.REACT_APP_VENUES_CLIENT_ID;
+const clientSecret = process.env.REACT_APP_VENUES_CLIENT_SECRET;
 const urlBase = "https://api.foursquare.com/v2/venues/explore?near=";
 const date = new Date();
 const year = date.getFullYear();

@@ -24,3 +24,4 @@ yarn-error.log*
 
 .env
 settings/keys.js
+/build
