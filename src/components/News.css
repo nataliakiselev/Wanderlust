@@ -1,0 +1,10 @@
+.image {
+  margin: 5;
+  width: 100;
+}
+
+@media (max-width: 500px) {
+  .news {
+    flex-wrap: wrap;
+  }
+}

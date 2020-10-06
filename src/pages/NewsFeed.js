@@ -12,7 +12,7 @@ function NewsFeed() {
       <Container>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <h1>News</h1>
+            <h1>News Feed</h1>
             <News />
           </Grid>
         </Grid>

@@ -12,13 +12,13 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
+    backgroundColor: theme.palette.secondary.dark,
   },
   details: {
     display: "flex",
   },
   content: {
     display: "flex",
-
     flexDirection: "column",
   },
 
@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     width: 70,
     height: 70,
     margin: "auto",
+  },
+  item: {
+    width: "100%",
   },
   // header: {
   //   flexBasis: "100%",
@@ -35,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const VenuesDisplay = ({ data }) => {
   const classes = useStyles();
   return data.map((venue) => (
-    <Grid item sm={4} key={venue.id}>
+    <Grid item sm={4} key={venue.id} className={classes.item}>
       <Card className={classes.root}>
         <CardHeader title={venue.name} className={classes.header} />
 

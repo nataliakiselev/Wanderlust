@@ -3,7 +3,6 @@ import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { CityContext } from "../contexts/CityContext";
 import ErrorSnackbar from "./ErrorSnackbar";
-// import {Paper, makeStyles} from "@material-ui/core";
 import VenuesDisplay from "./VenuesDisplay";
 
 const useStyles = makeStyles((theme) => ({
@@ -11,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: "flex",
     flexWrap: "wrap",
-
+    justifyContent: "center",
     padding: 0,
   },
 }));

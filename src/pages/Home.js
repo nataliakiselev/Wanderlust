@@ -11,11 +11,11 @@ function Home() {
       <CityContextProvider>
         <Header searchBar />
         <Container>
-          <Grid container spacing={4}>
-            <Grid item xs={3}>
+          <Grid container spacing={3} justify="center">
+            <Grid item sm={3}>
               <WeatherToday heading="Weather Today" />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item sm={9}>
               <Venues heading="Explore Venues" />
             </Grid>
           </Grid>

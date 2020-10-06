@@ -5,7 +5,7 @@ import WeatherDisplay from "./WeatherDisplay";
 import { CityContext } from "../contexts/CityContext";
 
 import getWeatherBackground from "../utils/getWeatherBackground";
-import { WEATHER_API_KEY } from "./../settings/keys";
+// import { WEATHER_API_KEY } from "./../settings/keys";
 
 function WeatherToday({ heading }) {
   const [city] = useContext(CityContext);
@@ -14,6 +14,7 @@ function WeatherToday({ heading }) {
   const [err, setErr] = useState(null);
 
   useEffect(() => {
+    const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
     async function getWeather() {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${WEATHER_API_KEY}`;
       setErr(null);
@@ -21,10 +22,10 @@ function WeatherToday({ heading }) {
 
       try {
         const response = await fetch(url);
-        console.log(response, "weather response");
+        // console.log(response, "weather response");
         if (response.status >= 200 && response.status < 300) {
           const data = await response.json();
-          console.log("weather data", data);
+          // console.log("weather data", data);
           setValue(data);
         } else {
           throw response;
@@ -39,10 +40,10 @@ function WeatherToday({ heading }) {
     getWeather();
   }, [city]);
 
-  console.log("city", city);
-  console.log("weather city", value && value.name);
-  console.log("full weather report", value);
-  console.log("error", err);
+  // console.log("city", city);
+  // console.log("weather city", value && value.name);
+  // console.log("full weather report", value);
+  // console.log("error", err);
 
   let backgroundImage =
     "https://s19499.pcdn.co/wp-content/uploads/2018/09/blue-sky-with-bright-sun-picture-id947314334-1.jpg"; // default

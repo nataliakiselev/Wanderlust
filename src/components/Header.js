@@ -25,8 +25,16 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
     },
   },
+  drawer: {
+    opacity: 0.95,
+  },
   list: {
-    width: 250,
+    width: 150,
+    textTransform: "uppercase",
+    margin: theme.spacing(1),
+  },
+  link: {
+    color: "inherit",
   },
 }));
 
@@ -36,7 +44,12 @@ function Header({ searchBar }) {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+        <Drawer
+          className={classes.drawer}
+          anchor="left"
+          open={open}
+          onClose={() => setOpen(false)}
+        >
           <div
             className={classes.list}
             role="presentation"
@@ -45,11 +58,15 @@ function Header({ searchBar }) {
           >
             <List>
               <ListItem button>
-                <NavLink to="/">Home</NavLink>
+                <NavLink className={classes.link} to="/">
+                  Home
+                </NavLink>
                 {/* <ListItemText primary={text} /> */}
               </ListItem>
               <ListItem button>
-                <NavLink to="/newsfeed">News Feed</NavLink>
+                <NavLink className={classes.link} to="/newsfeed">
+                  News Feed
+                </NavLink>
               </ListItem>
             </List>
           </div>
