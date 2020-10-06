@@ -1,5 +1,5 @@
 import React from "react";
-// import NewsHeader from '../components/NewsHeader';
+// import NewsHeader from "../components/NewsHeader";
 import Header from "../components/Header";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
@@ -10,9 +10,9 @@ function NewsFeed() {
     <div>
       <Header />
       <Container>
-        <Grid container spacing={4}>
+        <Grid container>
           <Grid item xs={12}>
-            <h1>News Feed</h1>
+            <h1>News Today</h1>
             <News />
           </Grid>
         </Grid>

@@ -59,7 +59,7 @@ function Header({ searchBar }) {
             <List>
               <ListItem button>
                 <NavLink className={classes.link} to="/">
-                  Home
+                  Explore
                 </NavLink>
                 {/* <ListItemText primary={text} /> */}
               </ListItem>
