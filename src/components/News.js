@@ -1,7 +1,6 @@
 import React from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import "./News.css";
-// import { NEWS_API_KEY } from "../settings/keys";
 
 const NEWS_API_HOST = "https://news67.p.rapidapi.com";
 const NEWS_ENDPOINT_PATH = "/trending";
@@ -59,20 +58,18 @@ class News extends React.Component {
   render() {
     const styles = {
       marginRight: "10px",
+      width: "100px",
     };
     return (
       <List>
         {this.state.data.map((story, i) => (
           <ListItem key={i} className="news">
-            <div style={styles}>
-              <img src={story.image} alt={story.title} width="100" />
-            </div>
-            <div>
-              <ListItemText
-                primary={<a href={story.url}> {story.title}</a>}
-                secondary={story.summarization || story.description}
-              />
-            </div>
+            <img src={story.image} alt={story.title} style={styles} />
+
+            <ListItemText
+              primary={<a href={story.url}> {story.title}</a>}
+              secondary={story.summarization || story.description}
+            />
           </ListItem>
         ))}
       </List>
